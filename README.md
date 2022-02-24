@@ -1,10 +1,10 @@
 # Carbon Calculator - Point B Hackathon 2022
 
+This app is build on React with Material UI `@mui/material` V5 and Airtable
+
 ## How to use
 
 [Clone the repo](https://github.com/blakedong2021/hackathon-2022):
-
-<!-- #default-branch-switch -->
 
 Install it and run:
 
@@ -15,35 +15,24 @@ npm start
 
 ## The idea behind the app
 
-<!-- #default-branch-switch -->
+HCA Healthcare is the largest hospital system in the US, with more than 185 hospitals, 2000 sites of care, and 275,000 employees. 
 
-This app is build on React with Material UI `@mui/material` V5 and Airtable
+The company recently announced plans to dramatically reduce its carbon footprint – with purchased goods and services being a key area of focus. HCA executives seek to maintain reliability at the lowest total cost (i.e., economic + environmental + social).
 
-## Assumptions
+Supply Chain
+To operate smoothly, HCA hospitals require a steady stream of supplies, some durables but many disposables. 
 
-•	4 primary mechanisms of delivery - Ship, rail, road, air (and combination of one or more of these)
-•	Products are being moved from Point A to Point B
-o	Point A:
-	Biggest port in China – Port of Shanghai
-•	Assume shipping only from this location
-	Biggest manufacturing plant in US for medical supplies – McKesson (Pharmaceutical Distribution location: 6535 State Hwy 161, Irving, TX, 75039)
-o	Point B: 
-	Miami, FL (Port of Miami)
-•	Aventura Hospital and Medical Center
-•	Kendall Regional Medical Center
-•	Mercy Hospital
-	Kansas City, MO (Port of Los Angeles?)
-•	Belton Regional Medical Center
-•	Centerpoint Medical Center
-•	Lafayette Regional Health Center
-•	Lee’s Summit Medical Center
-•	Research Medical Center
-	San Jose, CA (Port of Los Angeles)
-•	Good Samaritan Hospital
-•	Regional Medical Center of San Jose
 
-Data Scope
-•	Medical supplies: Hospital beds, syringes, latex gloves, etc.
+Problem Statement
+HCA management is committed to reducing its total social cost of purchased goods – provided that requisite levels of reliability are maintained. Hospitals can’t wait: every unit not delivered means a unit purchased at retail cost. The Operations team has spent years optimizing the supply chain on delivered unit cost and reliability, but readily admit they don’t have good tools to incorporate the carbon burden of transportation into their analysis.
+
+HCA has asked Point B for a technology proof of concept (POC) to show how they can shift to total cost supply chain accounting (i.e., commodity costs + carbon costs) and change their mix of suppliers and routes to support hospital operations at the optimal reliability / total social cost balance. For this POC, they are interested in focusing on the subset of goods above and on the following hospital locations: 
+•	Miami, FL
+•	Kansas City, MO
+•	San Jose, CA
+
+The Operations team needs to show management a viable prototype by March 8.
+
 
 
 
