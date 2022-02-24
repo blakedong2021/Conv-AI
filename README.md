@@ -1,15 +1,10 @@
-# Tailwind CSS example
+# Carbon Calculator - Point B Hackathon 2022
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/mui/material-ui):
+[Clone the repo](https://github.com/blakedong2021/hackathon-2022):
 
 <!-- #default-branch-switch -->
-
-```sh
-curl https://codeload.github.com/mui/material-ui/tar.gz/master | tar -xz --strip=2 material-ui-master/examples/tailwind-css
-cd tailwind-css
-```
 
 Install it and run:
 
@@ -18,26 +13,37 @@ npm install
 npm start
 ```
 
-or:
+## The idea behind the app
 
 <!-- #default-branch-switch -->
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui/material-ui/tree/master/examples/tailwind-css)
+This app is build on React with Material UI `@mui/material` V5 and Airtable
 
-<!-- #default-branch-switch -->
+## Assumptions
 
-[![Edit on StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/mui/material-ui/tree/master/examples/tailwind-css)
+•	4 primary mechanisms of delivery - Ship, rail, road, air (and combination of one or more of these)
+•	Products are being moved from Point A to Point B
+o	Point A:
+	Biggest port in China – Port of Shanghai
+•	Assume shipping only from this location
+	Biggest manufacturing plant in US for medical supplies – McKesson (Pharmaceutical Distribution location: 6535 State Hwy 161, Irving, TX, 75039)
+o	Point B: 
+	Miami, FL (Port of Miami)
+•	Aventura Hospital and Medical Center
+•	Kendall Regional Medical Center
+•	Mercy Hospital
+	Kansas City, MO (Port of Los Angeles?)
+•	Belton Regional Medical Center
+•	Centerpoint Medical Center
+•	Lafayette Regional Health Center
+•	Lee’s Summit Medical Center
+•	Research Medical Center
+	San Jose, CA (Port of Los Angeles)
+•	Good Samaritan Hospital
+•	Regional Medical Center of San Jose
 
-## The idea behind the example
+Data Scope
+•	Medical supplies: Hospital beds, syringes, latex gloves, etc.
 
-<!-- #default-branch-switch -->
 
-This example demonstrates how you can use [Tailwind CSS](https://tailwindcss.com/) and [Create React App](https://github.com/facebookincubator/create-react-app) together with MUI.
-It includes `@mui/material` and its peer dependencies, including `emotion`, the default style engine in MUI v5.
 
-## What's next?
-
-<!-- #default-branch-switch -->
-
-You now have a working example project.
-You can head back to the documentation, continuing browsing it from the [templates](https://mui.com/getting-started/templates/) section.
