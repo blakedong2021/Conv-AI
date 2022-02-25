@@ -34,17 +34,18 @@ const ProductList = () => {
         <Box>
             <List>
                 {products.map((p) => {
+                    var img = p.fields['Product Image'].length > 0 ? p.fields['Product Image'][0].url: ""
                     return (
                         <React.Fragment key={p.id}>
                             <Divider/>
                             <ListItem>
                                 <ListItemAvatar> 
-                                    <Avatar variant="square" src={placeholder} />
+                                    <Avatar variant="square" src={img} />
                                 </ListItemAvatar>
                                 <ListItemTextExtended 
-                                    overline={p.fields['Category Name']}
-                                    primary={"sku: " + p.fields['SKU']} 
-                                    secondary={"origin: " + p.fields['Source Location']}
+                                    overline={p.fields['Supplier']}
+                                    primary={p.fields['Product Name']} 
+                                    secondary={"Sku: " + p.fields['SKU']}
                                 />
                                 <ListItemSecondaryActionExtended>
                                     <Switch/>

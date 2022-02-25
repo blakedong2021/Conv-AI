@@ -4,6 +4,10 @@ import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 
 function DashboardContent() {
+  const iframetag = <div dangerouslySetInnerHTML={{ __html: 
+    '<iframe class="airtable-embed" src="https://airtable.com/embed/shrXOnV2TfiovqOnv?backgroundColor=green" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>'
+  }} />;
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={6} lg={6}>
@@ -38,7 +42,7 @@ function DashboardContent() {
       {/* Recent Orders */}
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <Skeleton variant="rectangular" height={500}/>
+          {iframetag}
         </Paper>
       </Grid>
     </Grid>

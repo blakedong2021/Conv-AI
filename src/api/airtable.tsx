@@ -32,7 +32,7 @@ export default function useData() {
     const fetchProducts = async () => {
         return axios.get('/').then(res => {
             setProducts(res.data.records);
-            // console.log("Airtable Dataset: ", res.data.records);
+            console.log("Airtable Dataset: ", res.data.records);
         });
     }
     
