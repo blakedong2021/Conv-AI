@@ -28,13 +28,13 @@ const ProductList = () => {
       onPageLoad();
     }, []);
     
-    if (!products || products.length === 0) return <p>no products available</p>;
+    if (!products) return <p>no products available</p>;
 
     return (
         <Box>
             <List>
                 {products.map((p) => {
-                    var img = p.fields['Product Image'].length > 0 ? p.fields['Product Image'][0].url: ""
+                    var img = p.fields['Product Image'] ? p.fields['Product Image'][0].url: ""
                     return (
                         <React.Fragment key={p.id}>
                             <Divider/>
