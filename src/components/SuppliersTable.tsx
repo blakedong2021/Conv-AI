@@ -41,7 +41,6 @@ function createData(
   };
 }
 
-
 const rows = [
   createData('Salud Medical Supply', 'Mexico City', 395.20, 118560, 1500, 150, 118710),
   createData('Shamrock Hospital Supply', 'Dublin', 386.40, 115920, 2500, 200, 116120),
@@ -179,7 +178,7 @@ export default function SuppliersTable() {
                 <TableCell align="center">ORDER COST</TableCell>
                 <TableCell align="center">CONTINGENCY COST</TableCell>
                 <TableCell align="center">CARBON COST</TableCell>
-                <TableCell align="center">TOTAL DELIVERED COST</TableCell>
+                <TableCell align="center">TOTAL COST</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
