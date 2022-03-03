@@ -18,7 +18,8 @@ import {
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import ExpansionPlaceholder from '../assets/supplier_expand.png';
+import SupplierDetails from './SupplierDetails';
+
 
 function createData(
   supplier: string,
@@ -78,15 +79,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box
-              component="img"
-              sx={{
-                pl: 4,
-                pr: 4,
-              }}
-              alt="SUPPLIER ROUTES"
-              src={ExpansionPlaceholder}
-            />
+            <SupplierDetails/>
           </Collapse>
         </TableCell>
       </TableRow>
