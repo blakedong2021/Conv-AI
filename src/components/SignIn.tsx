@@ -34,12 +34,13 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = String(data.get('email'));
+    const password = String(data.get('password'));
+
     // redirect to main app
-    navigate('/start');
+    if (email.includes("@pointb.com") && password == "pointb") {
+      navigate('/start');
+    }
   };
 
   return (
