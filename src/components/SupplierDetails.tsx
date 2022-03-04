@@ -8,7 +8,6 @@ import {
   Stack,
   Typography,
  } from '@mui/material';
- import ExpansionPlaceholder from '../assets/route.svg';
  
 export default function ProductSummary() {
   return (
