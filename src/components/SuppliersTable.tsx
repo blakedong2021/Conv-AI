@@ -33,8 +33,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const CARBON_UNITCOST = 100;
 const ALTERNATIVE_PREMIUMCOST = 50;
+const DELIVERY_RISK = 0.05;
 
-function createData(
+function modelData(
   quantity: number,
   supplier: string,
   origin: string,
@@ -54,14 +55,13 @@ function createData(
   };
 }
 
-function SupplierRow(props: { row: ReturnType<typeof createData> }) {
+function SupplierRow(props: { row: ReturnType<typeof modelData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
-  const deliveryrisk = 0.05;
   let ordercost = row.unitcost*row.quantity;
-  let contingencycost = row.contingencycost*deliveryrisk;
+  let contingencycost = row.contingencycost;
   let carboncost = row.unitcost*row.co2*row.carbonunitcost;
   let totalcost = ordercost+contingencycost+carboncost;
 
@@ -129,18 +129,24 @@ const carbonTicks = [
 ];
 
 const generatedSupplierData = [
-  createData(400, 'Salud Medical Supply', 'Mexico City', 395.20, 1500, 0.2245, CARBON_UNITCOST),
-  createData(400, 'Shamrock Hospital Supply', 'Dublin', 386.40, 1200, 0.03308951, CARBON_UNITCOST),
-  createData(400, 'Tokyo Medical Solutions', 'Tokyo', 402.86, 3000, 0.0680458,  CARBON_UNITCOST),
-  createData(400, 'Lone Star Medical', 'Irving', 415.00, 500, 0.0443186, CARBON_UNITCOST)
+  modelData(400, 'Salud Medical Supply', 'Mexico City', 395.20, 8892, 0.2245, CARBON_UNITCOST),
+  modelData(400, 'Shamrock Hospital Supply', 'Dublin', 386.40, 8694, 0.03308951, CARBON_UNITCOST),
+  modelData(400, 'Tokyo Medical Solutions', 'Tokyo', 402.86, 9064, 0.0680458,  CARBON_UNITCOST),
+  modelData(400, 'Lone Star Medical', 'Irving', 415.00, 9338, 0.0443186, CARBON_UNITCOST)
 ];
 
-export default function SuppliersTable() {
+interface ISupplierInput {
+  productQuantity: number;
+}
+
+export default function SuppliersTable({productQuantity}:ISupplierInput) {
   const [supplierData, setSupplierData] = React.useState(generatedSupplierData);
-  const [productQuantity, setProductQuantity] = React.useState<number>(400);
   const [carbonCost, setCarbonCost] = React.useState<number | Array<number>>(CARBON_UNITCOST);
   const [alternativePremium, setAlternativePremium] = React.useState<number | Array<number>>(ALTERNATIVE_PREMIUMCOST);
 
+  supplierData.forEach(x =>  {
+    x.quantity = productQuantity;
+  });
 
   function valuetext(value: number) {
     return `${value}`;
@@ -160,9 +166,14 @@ export default function SuppliersTable() {
 
   const handleAlternativePremiumChange = (event: Event, newValue: number | number[]) => {
     setAlternativePremium(newValue);
-    let premiumModifier = Number(newValue)/100;
+    let premiumModifier = 1+Number(newValue)/100;
+    console.log("Premium modifier = " + premiumModifier);
+
     supplierData.forEach(x =>  {
-      x.contingencycost = x.quantity*x.unitcost*premiumModifier;
+      console.log("Order Cost = " + x.quantity*x.unitcost);
+      let riskCost = x.quantity*x.unitcost*DELIVERY_RISK;
+      x.contingencycost = riskCost*premiumModifier;
+      console.log("Contingency Cost = " + x.contingencycost);
     });    
   };
 

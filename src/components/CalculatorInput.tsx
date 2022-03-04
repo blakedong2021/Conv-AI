@@ -22,24 +22,39 @@ const destinations = [
   "Research Medical Center",
 ];
 
-export default function CalculatorInput() {
-  const [destination, setDestination] = React.useState('Mercy Hospital');
-  const [productQuantity, setProductQuantity] = React.useState(400);
-  const [productSku, setProductSku] = React.useState('MS8225');
+export interface ICalculatorInput {
+  destinationInput: string,
+  onDestinationChanged: (newDestination: string) => void,
+  quantityInput: number,
+  onQuantityChanged: (newQuantity: number) => void,  
+  skuInput: string,
+  onSkuChanged: (newSku: string) => void,
+}
+
+export default function CalculatorInput({destinationInput, onDestinationChanged, quantityInput, onQuantityChanged, skuInput, onSkuChanged}:ICalculatorInput) {
+  const [destination, setDestination] = React.useState(destinationInput);
+  const [productQuantity, setProductQuantity] = React.useState(quantityInput);
+  const [productSku, setProductSku] = React.useState(skuInput);
 
   const handleDestChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDestination(event.target.value);
+    destinationInput = event.target.value;
+    setDestination(destinationInput);
+    onDestinationChanged(destinationInput);
   };
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let qty = Number(event.target.value);
-    if (!isNaN(qty)) {
+    let qty = 0;
+    if (event.target.value) {
+      qty = Number(event.target.value);
       setProductQuantity(qty);
+      onQuantityChanged(qty);
     }
   };
 
   const handleSkuChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductSku(event.target.value);
+    skuInput = event.target.value;
+    setProductSku(skuInput);
+    onSkuChanged(skuInput);
   };
 
   return (
