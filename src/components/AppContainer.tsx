@@ -7,26 +7,12 @@ import {
   Link,
   Toolbar,
   Typography,
-
 } from '@mui/material';
 
-import Dashboard from './components/Dashboard';
-import Topbar from './components/Topbar';
-import Sidebar from './components/Sidebar';
-import appTheme from './theme.js';
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        PointB Inc.
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Dashboard from './Dashboard';
+import Topbar from './Topbar';
+import Sidebar from './Sidebar';
+import appTheme from '../theme.js';
 
 export default function AppContainer() {
   return (
@@ -40,7 +26,6 @@ export default function AppContainer() {
           <Toolbar /> 
           <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
             <Dashboard />
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       {/* <Sidebar/> */}

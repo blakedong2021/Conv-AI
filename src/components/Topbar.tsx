@@ -6,10 +6,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Logo from '../assets/logo.png';
 import UserAvatar from '../assets/user.jpg';
+import { useNavigate } from 'react-router-dom';
+import { Grain } from '@mui/icons-material';
 
 function TopbarContent() {
+  let navigate = useNavigate();
+
   return (
     <AppBar 
       position="fixed" 
@@ -34,7 +37,8 @@ function TopbarContent() {
           Welcome Back, Cara!
         </Typography>
         <IconButton
-          color="inherit"
+          onClick={() => navigate('/') }
+          color="primary"
           size="small"
           sx={{ 
             flexDirection: "column"
@@ -42,16 +46,18 @@ function TopbarContent() {
         >
           <LogoutIcon />Log Out
         </IconButton>
-        <Box
-            component="img"
-            sx={{
-              height: 32,
-              pl: 4,
-              pr: 4,
-            }}
-            alt="Your logo."
-            src={Logo}
-        />
+        <Typography
+          variant="h4"
+          color="secondary"
+          sx={{
+            // height: 32,
+            pl: 4,
+            pr: 4,
+          }}
+        >
+          <Grain/>
+          ConvAI
+        </Typography>        
       </Toolbar>
     </AppBar>
   );

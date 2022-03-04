@@ -4,7 +4,7 @@ import {
   Paper,
   Skeleton,
  } from '@mui/material';
- import ExpansionPlaceholder from '../assets/supplier_expand.png';
+ import ExpansionPlaceholder from '../assets/route.svg';
  
 export default function ProductSummary() {
   return (
@@ -13,6 +13,7 @@ export default function ProductSummary() {
       sx={{
         pl: 4,
         pr: 4,
+        width: "90vh"
       }}
       alt="SUPPLIER ROUTES"
       src={ExpansionPlaceholder}
