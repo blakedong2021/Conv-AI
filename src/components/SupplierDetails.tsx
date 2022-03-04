@@ -13,36 +13,32 @@ import {
 export default function ProductSummary() {
   return (
       <React.Fragment>
+
           <Box
-              component="img"
-              sx={{
-                  pl: 4,
-                  pr: 4,
-              }}
-              alt="SUPPLIER ROUTES"
-              src={ExpansionPlaceholder}
-          />
-          <Container>
-              <Stack direction="row" spacing={4}>
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+              <Stack direction="row" spacing={8} sx={{p: 4}}>
                   <Stack spacing={2}>
-                      <Chip label="Distance" />
-                      <p>Distance</p>
+                      <Chip size="medium" label="Distance" />
+                      <Typography align="center">Distance</Typography>
                   </Stack>
                   <Stack spacing={2}>
-                      <Chip label="Distance" />
-                      <p>Total Weight</p>
+                      <Chip size="medium" label="Distance" />
+                      <Typography align="center">Total Weight</Typography>
                   </Stack>
                   <Stack spacing={2}>
-                      <Chip label="Distance" />
-                      <p>Trip Duration</p>
+                      <Chip size="medium" label="Distance" />
+                      <Typography align="center">Trip Duration</Typography>
                   </Stack>
                   <Stack spacing={2}>
-                      <Chip label="Distance" />
+                      <Chip size="medium" label="Distance" />
                       <Typography align="center">Total Carbon Cost</Typography>
                   </Stack>
               </Stack>
 
-          </Container>
+          </Box>
       </React.Fragment>
   );
 }
