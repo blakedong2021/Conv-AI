@@ -7,6 +7,7 @@ import {
   Stack,
   Typography
  } from '@mui/material';
+import { MoreVert } from '@mui/icons-material';
 
 const product = {
   name: "N95 Surgical Respirator",
@@ -19,48 +20,37 @@ const product = {
 }
 export default function ProductSummary() {
   return (
-    <Paper
-      sx={{
-        p: 2,
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Grid container spacing={3} alignItems="center">
-        <Grid item xs={12} md={4}>
-          <Box
-            component="img"
-            sx={{
-              pl: 4,
-              pr: 4,
-              width: 300,
-            }}
-            src={product.image}
-          />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Stack direction="row" spacing={6} sx={{ mb: 2}}>
-            <Typography variant="h6" color="primary">
-              Quantity: {product.quantity}
-            </Typography>
-            <Typography variant="h6" color="primary">
-              Destination: {product.destination}
-            </Typography>            
-          </Stack>
-          <Stack direction="column" spacing={1}>
-            <Typography variant="h4" color="secondary">
-              {product.name}
-            </Typography>
-            <Typography variant="h6">
-              SKU: {product.sku}
-            </Typography>    
-            <Typography>
-              UNIT WEIGHT: {product.weight} kg
-            </Typography>                        
-          </Stack>          
-        </Grid>
-      </Grid>    
-    </Paper>    
-
+    <Grid container spacing={3} alignItems="center">
+      <Grid item xs={12} md={4}>
+        <Box
+          component="img"
+          sx={{
+            pl: 4,
+            pr: 4,
+            width: 300,
+          }}
+          src={product.image}
+        />
+      </Grid>
+      <Grid item xs={12} md={8}>
+        <Stack direction="row" spacing={2} sx={{ mb: 2}}>
+          <Typography variant="h6" color="primary">Quantity:</Typography>
+          <Typography variant="h6" color="secondary">{product.quantity}</Typography>            
+          <Typography variant="h6" color="primary">Destination:</Typography>            
+          <Typography variant="h6" color="secondary">{product.destination}</Typography>
+        </Stack>
+        <Stack direction="column" spacing={1}>
+          <Typography variant="h4" color="secondary">
+            <MoreVert color="primary"/>{product.name}<MoreVert color="primary"/>
+          </Typography>
+          <Typography variant="h6">
+            SKU: {product.sku}
+          </Typography>    
+          <Typography>
+            UNIT WEIGHT: {product.weight} kg
+          </Typography>                        
+        </Stack>          
+      </Grid>
+    </Grid>    
   );
 }

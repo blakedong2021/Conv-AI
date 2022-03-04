@@ -10,7 +10,10 @@ export const appTheme = createTheme(
          secondary: {
             main: '#d9b83f',
          },
-      }
+      },
+      "shape": {
+         borderRadius: 12
+      }      
    }
 );
 

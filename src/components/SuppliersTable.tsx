@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
+// import { tableCellClasses } from '@mui/material/TableCell';
 import {
   Box,
   Collapse,
@@ -10,6 +12,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  tableCellClasses,  
   TableContainer,
   TableHead,
   TableRow,
@@ -20,6 +23,13 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import SupplierDetails from './SupplierDetails';
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.black,
+    fontWeight: "bold",
+  },
+}));
 
 function createData(
   supplier: string,
@@ -131,10 +141,10 @@ export default function SuppliersTable() {
         direction="column"
         spacing={{ xs: 1, sm: 2, md: 4 }}
       >
-        <Stack direction="row" alignItems="center" component={Paper}>
+        <Stack direction="row" alignItems="center">
           <Box sx={{ width: '50%', margin: 5 }}>
             <Typography gutterBottom>
-              CARBON COST
+              CARBON COST ($/Ton)
             </Typography>
             <Slider
               min={0}
@@ -151,7 +161,7 @@ export default function SuppliersTable() {
           </Box>
           <Box sx={{ width: '50%', margin: 5 }}>
             <Typography gutterBottom>
-              ALTERNATIVE PREMIUM
+              ALTERNATIVE PREMIUM (% Unit Cost)
             </Typography> 
             <Slider
               min={0}
@@ -171,14 +181,14 @@ export default function SuppliersTable() {
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
-                <TableCell />
-                <TableCell>SUPPLIER</TableCell>
-                <TableCell align="center">ORIGIN</TableCell>
-                <TableCell align="center">UNIT COST</TableCell>
-                <TableCell align="center">ORDER COST</TableCell>
-                <TableCell align="center">CONTINGENCY COST</TableCell>
-                <TableCell align="center">CARBON COST</TableCell>
-                <TableCell align="center">TOTAL COST</TableCell>
+                <StyledTableCell />
+                <StyledTableCell>SUPPLIER</StyledTableCell>
+                <StyledTableCell align="center">ORIGIN</StyledTableCell>
+                <StyledTableCell align="center">UNIT COST</StyledTableCell>
+                <StyledTableCell align="center">ORDER COST</StyledTableCell>
+                <StyledTableCell align="center">CONTINGENCY COST</StyledTableCell>
+                <StyledTableCell align="center">CARBON COST</StyledTableCell>
+                <StyledTableCell align="center">TOTAL COST</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
