@@ -8,10 +8,11 @@ import {
   Stack,
   Typography,
  } from '@mui/material';
- import ExpansionPlaceholder from '../assets/supplier_expand.png';
+ import ExpansionPlaceholder from '../assets/route.svg';
  
 export default function ProductSummary() {
   return (
+<<<<<<< HEAD
       <React.Fragment>
 
           <Box
@@ -40,5 +41,17 @@ export default function ProductSummary() {
 
           </Box>
       </React.Fragment>
+=======
+    <Box
+      component="img"
+      sx={{
+        pl: 4,
+        pr: 4,
+        width: "90vh"
+      }}
+      alt="SUPPLIER ROUTES"
+      src={ExpansionPlaceholder}
+    />
+>>>>>>> 9722649b6fc7a3a1d5a300be3a8a06b8385c971b
   );
 }
