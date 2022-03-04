@@ -22,38 +22,75 @@ const destinations = [
   "Research Medical Center",
 ];
 
-export default function CalculatorInput() {
-  const [destination, setDestination] = React.useState('Mercy Hospital');
+export interface ICalculatorInput {
+  destinationInput: string,
+  onDestinationChanged: (newDestination: string) => void,
+  quantityInput: number,
+  onQuantityChanged: (newQuantity: number) => void,  
+  skuInput: string,
+  onSkuChanged: (newSku: string) => void,
+}
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDestination(event.target.value);
+export default function CalculatorInput({destinationInput, onDestinationChanged, quantityInput, onQuantityChanged, skuInput, onSkuChanged}:ICalculatorInput) {
+  const [destination, setDestination] = React.useState(destinationInput);
+  const [productQuantity, setProductQuantity] = React.useState(quantityInput);
+  const [productSku, setProductSku] = React.useState(skuInput);
+
+  const handleDestChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    destinationInput = event.target.value;
+    setDestination(destinationInput);
+    onDestinationChanged(destinationInput);
+  };
+
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let qty = 0;
+    if (event.target.value) {
+      qty = Number(event.target.value);
+      setProductQuantity(qty);
+      onQuantityChanged(qty);
+    }
+  };
+
+  const handleSkuChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    skuInput = event.target.value;
+    setProductSku(skuInput);
+    onSkuChanged(skuInput);
   };
 
   return (
-    <Stack direction="row" spacing={6} alignItems="center" sx={{m: 5}}>
-      <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
-        <TextField 
-          select
-          label="Select"
-          value={destination}
-          onChange={handleChange}
-        >
-          {destinations.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <Typography>Destination</Typography>
+    <Box component="form" noValidate autoComplete="off"> 
+      <Stack direction="row" spacing={6} alignItems="center" sx={{m: 5}}>
+        <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
+          <TextField 
+            select
+            label="Select"
+            value={destination}
+            onChange={handleDestChange}
+          >
+            {destinations.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Typography>Destination</Typography>
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
+          <TextField 
+            value={productSku}
+            onChange={handleSkuChange}
+          />
+          <Typography>Product SKU</Typography>
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
+          <TextField 
+            type="number"
+            value={productQuantity}
+            onChange={handleQuantityChange}
+          />
+          <Typography>Quantity</Typography>
+        </Stack>  
       </Stack>
-      <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
-        <TextField value={"MS8225"}></TextField>
-        <Typography>Product SKU</Typography>
-      </Stack>
-      <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
-        <TextField value={300}></TextField>
-        <Typography>Quantity</Typography>
-      </Stack>  
-    </Stack>
+    </Box>
   );
 }

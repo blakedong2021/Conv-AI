@@ -12,7 +12,16 @@ import {
 export default function ProductSummary() {
   return (
       <React.Fragment>
-
+          <Box
+            component="img"
+            sx={{
+              pl: 4,
+              pr: 4,
+              width: "90vh"
+            }}
+            alt="SUPPLIER ROUTES"
+            src={ExpansionPlaceholder}
+          />
           <Box
             display="flex"
             justifyContent="center"

@@ -31,37 +31,39 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function createData(
+const CARBON_UNITCOST = 100;
+const ALTERNATIVE_PREMIUMCOST = 50;
+const DELIVERY_RISK = 0.05;
+
+function modelData(
+  quantity: number,
   supplier: string,
   origin: string,
   unitcost: number,
-  ordercost: number,
   contingencycost: number,
-  carboncost: number,
-  totalcost: number,
+  co2: number,
+  carbonunitcost: number
 ) {
   return {
+    quantity,
     supplier,
     origin,
     unitcost,
-    ordercost,
     contingencycost,
-    carboncost,
-    totalcost,
+    co2,
+    carbonunitcost,
   };
 }
 
-const rows = [
-  createData('Salud Medical Supply', 'Mexico City', 395.20, 118560, 1500, 150, 118710),
-  createData('Shamrock Hospital Supply', 'Dublin', 386.40, 115920, 2500, 200, 116120),
-  createData('Tokyo Medical Solutions', 'Tokyo', 402.86, 120858, 3000, 250, 121108),
-  createData('Lone Star Medical', 'Irving', 415.00, 130520, 500, 50, 119710),
-];
-
-function Row(props: { row: ReturnType<typeof createData> }) {
+function SupplierRow(props: { row: ReturnType<typeof modelData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+
   let dollarUSLocale = Intl.NumberFormat('en-US');
+  let ordercost = row.unitcost*row.quantity;
+  let contingencycost = row.contingencycost;
+  let carboncost = row.unitcost*row.co2*row.carbonunitcost;
+  let totalcost = ordercost+contingencycost+carboncost;
 
   return (
     <React.Fragment>
@@ -80,10 +82,10 @@ function Row(props: { row: ReturnType<typeof createData> }) {
         </TableCell>
         <TableCell align="center">{row.origin}</TableCell>
         <TableCell align="center">${row.unitcost.toFixed(2)}</TableCell>
-        <TableCell align="center">${dollarUSLocale.format(row.ordercost)}</TableCell>
-        <TableCell align="center">${dollarUSLocale.format(row.contingencycost)}</TableCell>
-        <TableCell align="center">${dollarUSLocale.format(row.carboncost)}</TableCell>
-        <TableCell align="center">${dollarUSLocale.format(row.totalcost)}</TableCell>                
+        <TableCell align="center">${dollarUSLocale.format(Math.round(ordercost))}</TableCell>
+        <TableCell align="center">${dollarUSLocale.format(Math.round(contingencycost))}</TableCell>
+        <TableCell align="center">${dollarUSLocale.format(Math.round(carboncost))}</TableCell>
+        <TableCell align="center">${dollarUSLocale.format(Math.round(totalcost))}</TableCell>                
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
@@ -96,7 +98,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
   );
 }
 
-const premiumTicks = [
+const altPremiumTicks = [
   {
     value: 0,
     label: '0%',
@@ -126,16 +128,55 @@ const carbonTicks = [
   },      
 ];
 
-function valuetext(value: number) {
-  return `${value}`;
+const generatedSupplierData = [
+  modelData(400, 'Salud Medical Supply', 'Mexico City', 395.20, 8892, 0.2245, CARBON_UNITCOST),
+  modelData(400, 'Shamrock Hospital Supply', 'Dublin', 386.40, 8694, 0.03308951, CARBON_UNITCOST),
+  modelData(400, 'Tokyo Medical Solutions', 'Tokyo', 402.86, 9064, 0.0680458,  CARBON_UNITCOST),
+  modelData(400, 'Lone Star Medical', 'Irving', 415.00, 9338, 0.0443186, CARBON_UNITCOST)
+];
+
+interface ISupplierInput {
+  productQuantity: number;
 }
 
-function valueLabelFormat(value: number) {
-  console.log("valuelabel: " +  value)
-  return `${value}`;
-}
+export default function SuppliersTable({productQuantity}:ISupplierInput) {
+  const [supplierData, setSupplierData] = React.useState(generatedSupplierData);
+  const [carbonCost, setCarbonCost] = React.useState<number | Array<number>>(CARBON_UNITCOST);
+  const [alternativePremium, setAlternativePremium] = React.useState<number | Array<number>>(ALTERNATIVE_PREMIUMCOST);
 
-export default function SuppliersTable() {
+  supplierData.forEach(x =>  {
+    x.quantity = productQuantity;
+  });
+
+  function valuetext(value: number) {
+    return `${value}`;
+  }
+  
+  function valueLabelFormat(value: number) {
+    return `${value}`;
+  }
+
+  const handleCarbonCostChange = (event: Event, newValue: number | number[]) => {
+    setCarbonCost(newValue);
+    supplierData.forEach(x =>  {
+      x.carbonunitcost = Number(newValue);
+    });
+    console.log("New supplier data: " + JSON.stringify(supplierData));
+  };
+
+  const handleAlternativePremiumChange = (event: Event, newValue: number | number[]) => {
+    setAlternativePremium(newValue);
+    let premiumModifier = 1+Number(newValue)/100;
+    console.log("Premium modifier = " + premiumModifier);
+
+    supplierData.forEach(x =>  {
+      console.log("Order Cost = " + x.quantity*x.unitcost);
+      let riskCost = x.quantity*x.unitcost*DELIVERY_RISK;
+      x.contingencycost = riskCost*premiumModifier;
+      console.log("Contingency Cost = " + x.contingencycost);
+    });    
+  };
+
   return (
       <Stack
         direction="column"
@@ -150,13 +191,14 @@ export default function SuppliersTable() {
               min={0}
               max={300}
               aria-label="CARBON COST"
-              defaultValue={50}
+              value={carbonCost}
               valueLabelFormat={valueLabelFormat}
               getAriaValueText={valuetext}
-              step={50}
+              step={10}
               valueLabelDisplay="on"
               marks={carbonTicks}
               color="secondary"
+              onChange={handleCarbonCostChange}
             />
           </Box>
           <Box sx={{ width: '50%', margin: 5 }}>
@@ -167,13 +209,14 @@ export default function SuppliersTable() {
               min={0}
               max={300}            
               aria-label=""
-              defaultValue={50}
+              value={alternativePremium}
               valueLabelFormat={valueLabelFormat}
               getAriaValueText={valuetext}
-              step={50}
+              step={10}
               valueLabelDisplay="on"
               color="secondary"
-              marks={premiumTicks}
+              marks={altPremiumTicks}
+              onChange={handleAlternativePremiumChange}
             />
           </Box>
         </Stack>
@@ -192,8 +235,8 @@ export default function SuppliersTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <Row key={row.supplier} row={row} />
+              {supplierData.map((row) => (
+                <SupplierRow key={row.supplier} row={row} />
               ))}
             </TableBody>
           </Table>
