@@ -62,7 +62,7 @@ function SupplierRow(props: { row: ReturnType<typeof modelData> }) {
   let dollarUSLocale = Intl.NumberFormat('en-US');
   let ordercost = row.unitcost*row.quantity;
   let contingencycost = row.contingencycost;
-  let carboncost = row.unitcost*row.co2*row.quantity;
+  let carboncost = row.carbonunitcost*row.co2*row.quantity;
   let totalcost = ordercost+contingencycost+carboncost;
 
   return (
