@@ -1,6 +1,9 @@
 import * as React from 'react';
 import {
-  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
   Grid,
   Paper,
   Skeleton,
@@ -14,24 +17,31 @@ export interface IProduct {
   productDestination: string;
   productQuantity: number;
   productName: string;
+  productSummary: string;  
   productUnitWeight: number;
   productImage: string;
 }
 
 export default function ProductSummary(props:IProduct) {
-  const {productSku, productDestination, productQuantity, productName, productUnitWeight, productImage} = props;
+  const {productSku, productDestination, productQuantity, productName, productSummary, productUnitWeight, productImage} = props;
   return (
     <Grid container spacing={3} alignItems="center">
       <Grid item xs={12} md={4}>
-        <Box
-          component="img"
-          sx={{
-            pl: 4,
-            pr: 4,
-            width: 300,
-          }}
-          src={productImage}
-        />
+        <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="240"
+              image={productImage}
+              alt={productName}
+            />
+            <CardContent sx={{ height: 80 }}>
+              <Typography variant="body2" color="text.primary" sx={{ wordWrap: "break-word" }}>
+                {productSummary}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>        
       </Grid>
       <Grid item xs={12} md={8}>
         <Stack direction="row" spacing={2} sx={{ mb: 2}}>

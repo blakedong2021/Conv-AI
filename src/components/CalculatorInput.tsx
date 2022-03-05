@@ -28,10 +28,10 @@ export interface ICalculatorInput {
   quantityInput: number,
   onQuantityChanged: (newQuantity: number) => void,  
   skuInput: string,
-  onSkuChanged: (newSku: string) => void,
+  onProductChanged: (newProduct: any) => void,
 }
 
-export default function CalculatorInput({destinationInput, onDestinationChanged, quantityInput, onQuantityChanged, skuInput, onSkuChanged}:ICalculatorInput) {
+export default function CalculatorInput({destinationInput, onDestinationChanged, quantityInput, onQuantityChanged, skuInput, onProductChanged}:ICalculatorInput) {
   const [destination, setDestination] = React.useState(destinationInput);
   const [productQuantity, setProductQuantity] = React.useState(quantityInput);
   const [productSku, setProductSku] = React.useState(skuInput);
@@ -51,10 +51,8 @@ export default function CalculatorInput({destinationInput, onDestinationChanged,
     }
   };
 
-  const handleSkuChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    skuInput = event.target.value;
-    setProductSku(skuInput);
-    onSkuChanged(skuInput);
+  const handleProductSelectionChange = (product: any) => {  
+    onProductChanged(product);
   };
 
   return (
@@ -80,7 +78,7 @@ export default function CalculatorInput({destinationInput, onDestinationChanged,
             value={productSku}
             onChange={handleSkuChange}
           /> */}
-          <ProductSelector />
+          <ProductSelector onProductSelectionChanged={handleProductSelectionChange}/>
           <Typography>Product</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>

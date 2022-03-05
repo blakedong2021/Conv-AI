@@ -6,9 +6,12 @@ import {
 import ProductSummary, { IProduct } from './ProductSummary';
 import SuppliersTable from './SuppliersTable';
 
+
+
 let mockup:IProduct = {
-  productName: "N95 Surgical Respirator",
-  productSku: "MS8226",
+  productName: "Face Mask, Cone, N95 Surgical",
+  productSummary: "Mask, N95 Surgical Respirator, NIOSH-Certified, FDA and DCD-Listed, Foldable-Design, 20/bx, 20bx/cs",
+  productSku: "MDI MS8225",
   productQuantity: 300,
   productDestination: "Mercy Hospital",
   productUnitWeight: 10,
@@ -19,8 +22,20 @@ export default function Dashboard() {
   const [product, setProduct] = React.useState<IProduct>(mockup);
 
   function handleDestinationChange(newDestination: string) {setProduct({...product, productDestination: newDestination})}
+  
   function handleQuantityChange(newQuantity: number) {setProduct({...product, productQuantity: newQuantity})}
-  function handleSkuChange(newSku: string) {setProduct({...product, productSku: newSku})}
+  
+  function handleProductChange(newProduct: any) {
+    setProduct({
+      ...product, 
+      productName: newProduct.name, 
+      productSummary: newProduct.description,
+      productSku: newProduct.sku,
+      productUnitWeight: newProduct.unitWeight,
+      productImage: newProduct.image,
+    });
+    console.log("New Product Selected: " + newProduct);
+  }
 
   return (
     <Stack direction="column" spacing={2}>
@@ -30,7 +45,7 @@ export default function Dashboard() {
         quantityInput={product.productQuantity}
         onQuantityChanged={handleQuantityChange}        
         skuInput={product.productSku}
-        onSkuChanged={handleSkuChange}
+        onProductChanged={handleProductChange}
       />
       <ProductSummary {...product}/>
       <SuppliersTable productQuantity={product.productQuantity}/>

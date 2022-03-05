@@ -30,9 +30,27 @@ export default function useData() {
     const [products, setProducts] = useState(null);
    
     const fetchProducts = async () => {
+
         return axios.get('/').then(res => {
-            setProducts(res.data.records);
-            console.log("Airtable Dataset: ", res.data.records);
+            const transformed = res.data.records.map((p: any) => {
+                return {
+                    id: p.id,
+                    sku: p.fields['SKU'],
+                    image: p.fields['Product Image'] ? p.fields['Product Image'][0].url: "",
+                    name: p.fields['Product Name'],
+                    description: p.fields['Product Description'],
+                    category: p.fields['Category Name'],
+                    supplier: p.fields['Supplier'],
+                    unitCost: p.fields['Unit Cost'],
+                    costMultiplier: p.fields['Cost Multiplier'],
+                    adjustedCost: p.fields['Adjusted Cost'],
+                    unitWeight: p.fields['Unit Weight'],
+                    orders: p.fields['Orders'],
+                };
+            })
+
+            setProducts(transformed);
+            // console.log("Airtable Dataset: ", transformed);
         });
     }
     

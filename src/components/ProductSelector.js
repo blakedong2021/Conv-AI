@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     Autocomplete,
     Avatar,
@@ -10,7 +10,11 @@ import { ListItemTextExtended, ListItemSecondaryActionExtended } from 'mui-listi
 import placeholder from '../assets/placeholder.jpg';
 import useData from '../api/airtable';
 
-export default function ProductSelector() {
+export interface IProductSelector {
+    onProductSelectionChanged: (product: any) => void,
+  }
+
+export default function ProductSelector({onProductSelectionChanged}:IProductSelector) {
     const { products, fetchProducts } = useData();
 
     useEffect(() => {
@@ -20,29 +24,37 @@ export default function ProductSelector() {
         onInitialize();
     }, []);
     
-    if (!products) return <p>no products available</p>;
+    if (!products) return <p>fetching products</p>;
+
+    function handleProductSelectionChange(event, value, reason) {
+        let selection =  products.filter(p => p.sku == value);
+        // console.log("Product selection: " + JSON.stringify(selection[0]));
+
+        onProductSelectionChanged(selection[0]);
+    }
 
     return (
         <Autocomplete
             sx={{ width: 350 }}
             options={products}
             autoHighlight
-            getOptionLabel={(p) => p.fields['SKU']}
-            renderOption={(props, p) => (
-                <Box component="li" {...props}>
-                    <Avatar variant="square" src={p.fields['Product Image'] ? p.fields['Product Image'][0].url: ""} sx={{m: 2, width: 56, height: 56}}/>
-                    {p.fields['Product Name']} ({p.fields['SKU']})
-                </Box>
+            getOptionLabel={(option) => option.sku}
+            renderOption={(props, option) => (
+                <li {...props} key={option.id} >
+                    <Avatar variant="square" src={option.image} sx={{m: 2, width: 56, height: 56}}/>
+                    {option.name} ({option.sku})
+                </li>
             )}
             renderInput={(params) => (
-            <TextField
-                {...params}
+                <TextField
+                    {...params}
                     label="Choose a product"
                     inputProps={{
-                    ...params.inputProps,
-                }}
-            />
+                        ...params.inputProps,
+                    }}
+                />
             )}
+            onInputChange={handleProductSelectionChange}
         />
     )
 }
