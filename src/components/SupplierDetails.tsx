@@ -8,6 +8,10 @@ import {
   Stack,
   Typography,
  } from '@mui/material';
+ import DublinRoute from '../assets/dublin_miami.svg';
+ import AltamiraRoute from '../assets/altamira_miami.svg';
+ import IrvingRoute from '../assets/irving_miami.svg';
+ import TokyoRoute from '../assets/tokyo_miami.svg';
  
 export default function ProductSummary() {
   return (
@@ -17,10 +21,10 @@ export default function ProductSummary() {
             sx={{
               pl: 4,
               pr: 4,
-              width: "90vh"
+              width: "85vh"
             }}
             alt="SUPPLIER ROUTES"
-            src={ExpansionPlaceholder}
+            src={TokyoRoute}
           />
           <Box
             display="flex"
