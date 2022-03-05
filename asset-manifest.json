@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/conv-ai/static/css/main.b3530738.css",
-    "main.js": "/conv-ai/static/js/main.8dbefb35.js",
-    "static/js/787.77091071.chunk.js": "/conv-ai/static/js/787.77091071.chunk.js",
-    "static/media/route.svg": "/conv-ai/static/media/route.46d2139ab5b971eaf0b997006106324b.svg",
-    "static/media/tokyo_miami.svg": "/conv-ai/static/media/tokyo_miami.674cfe9fa62e75d1b7636f056ef6d5c9.svg",
-    "index.html": "/conv-ai/index.html",
-    "main.b3530738.css.map": "/conv-ai/static/css/main.b3530738.css.map",
-    "main.8dbefb35.js.map": "/conv-ai/static/js/main.8dbefb35.js.map",
-    "787.77091071.chunk.js.map": "/conv-ai/static/js/787.77091071.chunk.js.map"
+    "main.css": "/Conv-AI/static/css/main.b3530738.css",
+    "main.js": "/Conv-AI/static/js/main.254f7cbb.js",
+    "static/js/787.77091071.chunk.js": "/Conv-AI/static/js/787.77091071.chunk.js",
+    "static/media/route.svg": "/Conv-AI/static/media/route.46d2139ab5b971eaf0b997006106324b.svg",
+    "static/media/tokyo_miami.svg": "/Conv-AI/static/media/tokyo_miami.674cfe9fa62e75d1b7636f056ef6d5c9.svg",
+    "index.html": "/Conv-AI/index.html",
+    "main.b3530738.css.map": "/Conv-AI/static/css/main.b3530738.css.map",
+    "main.254f7cbb.js.map": "/Conv-AI/static/js/main.254f7cbb.js.map",
+    "787.77091071.chunk.js.map": "/Conv-AI/static/js/787.77091071.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b3530738.css",
-    "static/js/main.8dbefb35.js"
+    "static/js/main.254f7cbb.js"
   ]
 }
