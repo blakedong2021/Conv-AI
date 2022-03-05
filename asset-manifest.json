@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Conv-AI/static/css/main.0b20aad0.css",
-    "main.js": "/Conv-AI/static/js/main.38e38f76.js",
+    "main.css": "/Conv-AI/static/css/main.ddbac9b9.css",
+    "main.js": "/Conv-AI/static/js/main.6c353492.js",
     "static/js/787.77091071.chunk.js": "/Conv-AI/static/js/787.77091071.chunk.js",
     "static/media/route.svg": "/Conv-AI/static/media/route.46d2139ab5b971eaf0b997006106324b.svg",
     "static/media/tokyo_miami.svg": "/Conv-AI/static/media/tokyo_miami.674cfe9fa62e75d1b7636f056ef6d5c9.svg",
     "index.html": "/Conv-AI/index.html",
-    "main.0b20aad0.css.map": "/Conv-AI/static/css/main.0b20aad0.css.map",
-    "main.38e38f76.js.map": "/Conv-AI/static/js/main.38e38f76.js.map",
+    "main.ddbac9b9.css.map": "/Conv-AI/static/css/main.ddbac9b9.css.map",
+    "main.6c353492.js.map": "/Conv-AI/static/js/main.6c353492.js.map",
     "787.77091071.chunk.js.map": "/Conv-AI/static/js/787.77091071.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b20aad0.css",
-    "static/js/main.38e38f76.js"
+    "static/css/main.ddbac9b9.css",
+    "static/js/main.6c353492.js"
   ]
 }
