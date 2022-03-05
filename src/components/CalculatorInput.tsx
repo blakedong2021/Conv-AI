@@ -9,7 +9,7 @@ import {
   TextField,
   Typography
  } from '@mui/material';
-import { MoreVert } from '@mui/icons-material';
+import ProductSelector from './ProductSelector';
 
 const destinations = [
   "Mercy Hospital",
@@ -63,7 +63,7 @@ export default function CalculatorInput({destinationInput, onDestinationChanged,
         <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
           <TextField 
             select
-            label="Select"
+            label="Select destination"
             value={destination}
             onChange={handleDestChange}
           >
@@ -76,11 +76,12 @@ export default function CalculatorInput({destinationInput, onDestinationChanged,
           <Typography>Destination</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
-          <TextField 
+          {/* <TextField 
             value={productSku}
             onChange={handleSkuChange}
-          />
-          <Typography>Product SKU</Typography>
+          /> */}
+          <ProductSelector />
+          <Typography>Product</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
           <TextField 

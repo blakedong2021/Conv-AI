@@ -3,7 +3,7 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import { mainListItems, secondaryListItems } from './RightPanelItems';
+// import { mainListItems, secondaryListItems } from './RightPanelItems';
 
 const drawerWidth: number = 400;
 
@@ -32,9 +32,9 @@ export default function Sidebar() {
       </Toolbar>
       <Divider />
       <List component="nav">
-        {mainListItems}
+        {/* {mainListItems} */}
         <Divider sx={{ my: 1 }} />
-        {secondaryListItems}
+        {/* {secondaryListItems} */}
       </List>
     </Drawer>
   );
