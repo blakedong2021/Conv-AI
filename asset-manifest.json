@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/hackathon-2022/static/css/main.b3530738.css",
-    "main.js": "/hackathon-2022/static/js/main.e853ddee.js",
-    "static/js/787.77091071.chunk.js": "/hackathon-2022/static/js/787.77091071.chunk.js",
-    "static/media/route.svg": "/hackathon-2022/static/media/route.46d2139ab5b971eaf0b997006106324b.svg",
-    "static/media/tokyo_miami.svg": "/hackathon-2022/static/media/tokyo_miami.674cfe9fa62e75d1b7636f056ef6d5c9.svg",
-    "index.html": "/hackathon-2022/index.html",
-    "main.b3530738.css.map": "/hackathon-2022/static/css/main.b3530738.css.map",
-    "main.e853ddee.js.map": "/hackathon-2022/static/js/main.e853ddee.js.map",
-    "787.77091071.chunk.js.map": "/hackathon-2022/static/js/787.77091071.chunk.js.map"
+    "main.css": "/conv-ai/static/css/main.b3530738.css",
+    "main.js": "/conv-ai/static/js/main.8dbefb35.js",
+    "static/js/787.77091071.chunk.js": "/conv-ai/static/js/787.77091071.chunk.js",
+    "static/media/route.svg": "/conv-ai/static/media/route.46d2139ab5b971eaf0b997006106324b.svg",
+    "static/media/tokyo_miami.svg": "/conv-ai/static/media/tokyo_miami.674cfe9fa62e75d1b7636f056ef6d5c9.svg",
+    "index.html": "/conv-ai/index.html",
+    "main.b3530738.css.map": "/conv-ai/static/css/main.b3530738.css.map",
+    "main.8dbefb35.js.map": "/conv-ai/static/js/main.8dbefb35.js.map",
+    "787.77091071.chunk.js.map": "/conv-ai/static/js/787.77091071.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b3530738.css",
-    "static/js/main.e853ddee.js"
+    "static/js/main.8dbefb35.js"
   ]
 }
