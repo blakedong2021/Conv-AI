@@ -8,14 +8,14 @@ import {
 
 import { ListItemTextExtended, ListItemSecondaryActionExtended } from 'mui-listitem-extended';
 import placeholder from '../assets/placeholder.jpg';
-import useData from '../api/airtable';
+import { useProducts } from '../api/airtable';
 
 export interface IProductSelector {
     onProductSelectionChanged: (product: any) => void,
   }
 
 export default function ProductSelector({onProductSelectionChanged}:IProductSelector) {
-    const { products, fetchProducts } = useData();
+    const { products, fetchProducts } = useProducts();
 
     useEffect(() => {
        async function onInitialize () {
@@ -27,10 +27,11 @@ export default function ProductSelector({onProductSelectionChanged}:IProductSele
     if (!products) return <p>fetching products</p>;
 
     function handleProductSelectionChange(event, value, reason) {
-        let selection =  products.filter(p => p.sku == value);
+        // Filtering by SKU will result in a list of products from various supppliers
+        let selections =  products.filter(p => p.sku == value);
         // console.log("Product selection: " + JSON.stringify(selection[0]));
 
-        onProductSelectionChanged(selection[0]);
+        onProductSelectionChanged(selections);
     }
 
     return (

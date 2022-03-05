@@ -27,11 +27,11 @@ export default function ProductSummary(props:IProduct) {
   return (
     <Grid container spacing={3} alignItems="center">
       <Grid item xs={12} md={4}>
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 300 }}>
           <CardActionArea>
             <CardMedia
               component="img"
-              height="240"
+              height="200"
               image={productImage}
               alt={productName}
             />

@@ -35,34 +35,23 @@ const CARBON_UNITCOST = 100;
 const ALTERNATIVE_PREMIUMCOST = 50;
 const DELIVERY_RISK = 0.05;
 
-function modelData(
-  quantity: number,
-  supplier: string,
-  origin: string,
-  unitcost: number,
-  contingencycost: number,
-  co2: number,
-  carbonunitcost: number
-) {
-  return {
-    quantity,
-    supplier,
-    origin,
-    unitcost,
-    contingencycost,
-    co2,
-    carbonunitcost,
-  };
-}
+export type Supplier = {
+  supplier: string;
+  origin: string;
+  unitcost: number;
+  contingencycost: number;
+  co2: number;
+  carbonunitcost: number;
+};
 
-function SupplierRow(props: { row: ReturnType<typeof modelData> }) {
-  const { row } = props;
+function SupplierRow(props: { row: Supplier, orderQuantity: number }) {
+  const { row, orderQuantity } = props;
   const [open, setOpen] = React.useState(false);
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
-  let ordercost = row.unitcost*row.quantity;
+  let ordercost = row.unitcost*orderQuantity;
   let contingencycost = row.contingencycost;
-  let carboncost = row.carbonunitcost*row.co2*row.quantity;
+  let carboncost = row.carbonunitcost*row.co2*orderQuantity;
   let totalcost = ordercost+contingencycost+carboncost;
 
   return (
@@ -128,32 +117,36 @@ const carbonTicks = [
   },      
 ];
 
-const generatedSupplierData = [
-  modelData(400, 'Salud Medical Supply', 'Mexico City', 395.20, 8892, 0.02245, CARBON_UNITCOST),
-  modelData(400, 'Shamrock Hospital Supply', 'Dublin', 386.40, 8694, 0.03308951, CARBON_UNITCOST),
-  modelData(400, 'Tokyo Medical Solutions', 'Tokyo', 402.86, 9064, 0.0680458,  CARBON_UNITCOST),
-  modelData(400, 'Lone Star Medical', 'Irving', 415.00, 9338, 0.0443186, CARBON_UNITCOST)
+const generatedSupplierData:Array<Supplier> = [
+  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST},
+  {supplier: 'Shamrock Hospital Supply', origin: 'Mexico City', unitcost: 395.20, contingencycost: 8694, co2: 0.03308951, carbonunitcost: CARBON_UNITCOST},
+  {supplier: 'Tokyo Medical Solutions', origin: 'Tokyo', unitcost: 402.86, contingencycost: 9094, co2: 0.0680458, carbonunitcost: CARBON_UNITCOST},
+  {supplier: 'Lone Star Medical', origin: 'Irving', unitcost: 415.00, contingencycost: 9338, co2: 0.0443186, carbonunitcost: CARBON_UNITCOST},
 ];
 
-interface ISupplierInput {
+export interface ISupplierInput {
   productQuantity: number;
+  suppliers: Array<Supplier>;
 }
 
-export default function SuppliersTable({productQuantity}:ISupplierInput) {
-  const [supplierData, setSupplierData] = React.useState(generatedSupplierData);
+export default function SuppliersTable({productQuantity, suppliers}:ISupplierInput) {
+  const [orderQuantity, setOrderQuantity] = React.useState<number>(productQuantity);
+  const [supplierData, setSupplierData] = React.useState<Array<Supplier>>(generatedSupplierData);
   const [carbonCost, setCarbonCost] = React.useState<number | Array<number>>(CARBON_UNITCOST);
   const [alternativePremium, setAlternativePremium] = React.useState<number | Array<number>>(ALTERNATIVE_PREMIUMCOST);
 
   useEffect(() => {
-    generatedSupplierData.forEach(x =>  {
-      x.quantity = productQuantity;
+    console.log(`Quantity/Supplier update: ${productQuantity}, suppliers: ${JSON.stringify(suppliers)}`);
+    setOrderQuantity(productQuantity);
 
+    suppliers.forEach(x =>  {
       let premiumModifier = 1+Number(alternativePremium)/100;
       let riskCost = productQuantity*x.unitcost*DELIVERY_RISK;
       x.contingencycost = riskCost*premiumModifier;
     })
-    setSupplierData(generatedSupplierData);
-  }, [productQuantity]);
+
+    setSupplierData(suppliers);
+  }, [productQuantity, suppliers]);
 
   function valuetext(value: number) {
     return `${value}`;
@@ -178,7 +171,7 @@ export default function SuppliersTable({productQuantity}:ISupplierInput) {
 
     supplierData.forEach(x =>  {
       // console.log("Order Cost = " + x.quantity*x.unitcost);
-      let riskCost = x.quantity*x.unitcost*DELIVERY_RISK;
+      let riskCost = orderQuantity*x.unitcost*DELIVERY_RISK;
       x.contingencycost = riskCost*premiumModifier;
       // console.log("Contingency Cost = " + x.contingencycost);
     });    
@@ -243,7 +236,7 @@ export default function SuppliersTable({productQuantity}:ISupplierInput) {
             </TableHead>
             <TableBody>
               {supplierData.map((row) => (
-                <SupplierRow key={row.supplier} row={row} />
+                <SupplierRow key={row.supplier} row={row} orderQuantity={orderQuantity} />
               ))}
             </TableBody>
           </Table>

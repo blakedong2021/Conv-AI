@@ -12,7 +12,7 @@ Airtable.configure({
 const base = Airtable.base(BASE_ID);
 
 //base endpoint to call with each request
-axios.defaults.baseURL = `https://api.airtable.com/v0/${BASE_ID}/products/`;
+axios.defaults.baseURL = `https://api.airtable.com/v0/${BASE_ID}`;
 
 //content type to send with all POST requests 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -26,12 +26,12 @@ axios.defaults.headers = {
     Authorization: `Bearer ${API_KEY}`
 } as CommonHeaderProperties;
 
-export default function useData() {
+export function useProducts() {
     const [products, setProducts] = useState(null);
    
     const fetchProducts = async () => {
 
-        return axios.get('/').then(res => {
+        return axios.get('/products').then(res => {
             const transformed = res.data.records.map((p: any) => {
                 return {
                     id: p.id,
@@ -50,9 +50,34 @@ export default function useData() {
             })
 
             setProducts(transformed);
-            // console.log("Airtable Dataset: ", transformed);
+            // console.log("Airtable Products: ", transformed);
         });
     }
     
     return { fetchProducts, products }
+}
+
+export function useModel() {
+    const [model, setModel] = useState(null);
+   
+    const fetchModel = async () => {
+
+        return axios.get('/models').then(res => {
+            const transformed = res.data.records.map((p: any) => {
+                return {
+                    id: p.id,
+                    sku: p.fields['SKU'][0],
+                    supplier: p.fields['Supplier'][0],
+                    destination: p.fields['Destination'],
+                    totalDistance: p.fields['Total Distance'],
+                    co2: p.fields['Metric Tons CO2 per Unit'],
+                };
+            })
+
+            setModel(transformed);
+            console.log("Airtable Model: ", transformed);
+        });
+    }
+    
+    return { fetchModel, model }
 }
