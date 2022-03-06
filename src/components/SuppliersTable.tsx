@@ -64,6 +64,7 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number, destination:
           <IconButton
             aria-label="expand row"
             size="small"
+            sx={{color: 'common.black', backgroundColor: 'secondary.main', '&:hover': {backgroundColor: 'common.white'}}}
             onClick={() => setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
