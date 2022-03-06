@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Conv-AI/static/css/main.ddbac9b9.css",
-    "main.js": "/Conv-AI/static/js/main.553f0a08.js",
+    "main.js": "/Conv-AI/static/js/main.86ae6ffb.js",
     "static/js/787.77091071.chunk.js": "/Conv-AI/static/js/787.77091071.chunk.js",
     "static/media/route.svg": "/Conv-AI/static/media/route.46d2139ab5b971eaf0b997006106324b.svg",
     "static/media/altamira_miami.svg": "/Conv-AI/static/media/altamira_miami.b90c7f703ac73fbbd1607eb229878598.svg",
@@ -10,11 +10,11 @@
     "static/media/irving_miami.svg": "/Conv-AI/static/media/irving_miami.956ba1149d457d5ce17ae2bd8fd1da3f.svg",
     "index.html": "/Conv-AI/index.html",
     "main.ddbac9b9.css.map": "/Conv-AI/static/css/main.ddbac9b9.css.map",
-    "main.553f0a08.js.map": "/Conv-AI/static/js/main.553f0a08.js.map",
+    "main.86ae6ffb.js.map": "/Conv-AI/static/js/main.86ae6ffb.js.map",
     "787.77091071.chunk.js.map": "/Conv-AI/static/js/787.77091071.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ddbac9b9.css",
-    "static/js/main.553f0a08.js"
+    "static/js/main.86ae6ffb.js"
   ]
 }
