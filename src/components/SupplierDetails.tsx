@@ -14,8 +14,8 @@ import {
  import TokyoRoute from '../assets/tokyo_miami.svg';
  
 
-export default function SupplierDetails(props: {destination: string, distance: number, weight: number, duration: string, carboncost: number}) {
-  const { destination, distance, weight, duration, carboncost } = props;
+export default function SupplierDetails(props: {supplier: string, distance: number, weight: number, duration: string, carboncost: number}) {
+  const { supplier, distance, weight, duration, carboncost } = props;
 
   // since we have no trip duration data, just do a fake calculation based on distance
   const milesPerDay = 308;  // assume we can cover this distance in 1 day
@@ -23,6 +23,24 @@ export default function SupplierDetails(props: {destination: string, distance: n
   let hours = Math.floor((distance/milesPerDay-days) * 24);
   let tripDuration = `${days} days ${hours} hr`
   let dollarUSLocale = Intl.NumberFormat('en-US');
+
+  let mapSrc = "";
+  switch (supplier) {
+    case 'Shamrock Hospital Supply':
+      mapSrc = DublinRoute;
+      break;
+    case 'Tokyo Health Solutions':
+      mapSrc = TokyoRoute;
+      break;      
+    case 'Salud Medical Supply':
+      mapSrc = AltamiraRoute;
+      break;
+    case 'Lone Star Medical':
+      mapSrc = IrvingRoute;
+      break;      
+    default:
+      break;
+  }
 
   return (
       <React.Fragment>
@@ -34,7 +52,7 @@ export default function SupplierDetails(props: {destination: string, distance: n
               width: "100%"
             }}
             alt="SUPPLIER ROUTES"
-            src={TokyoRoute}
+            src={mapSrc}
           />
           <Box
             display="flex"

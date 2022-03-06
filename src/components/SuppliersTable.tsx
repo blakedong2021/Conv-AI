@@ -83,7 +83,7 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number, destination:
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <SupplierDetails
-              destination={destination}
+              supplier={row.supplier}
               distance={row.distance}
               weight={totalWeight} 
               duration={"N/A"} 
