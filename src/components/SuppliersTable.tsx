@@ -42,10 +42,11 @@ export type Supplier = {
   contingencycost: number;
   co2: number;
   carbonunitcost: number;
+  distance: number;
 };
 
-function SupplierRow(props: { row: Supplier, orderQuantity: number }) {
-  const { row, orderQuantity } = props;
+function SupplierRow(props: { row: Supplier, orderQuantity: number, destination: string }) {
+  const { row, orderQuantity, destination } = props;
   const [open, setOpen] = React.useState(false);
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
@@ -79,7 +80,13 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number }) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <SupplierDetails/>
+            <SupplierDetails
+              destination={destination}
+              distance={row.distance}
+              weight={"3400 kg"} 
+              duration={"10 days"} 
+              carboncost={dollarUSLocale.format(Math.round(carboncost))}
+            />
           </Collapse>
         </TableCell>
       </TableRow>
@@ -118,31 +125,39 @@ const carbonTicks = [
 ];
 
 const generatedSupplierData:Array<Supplier> = [
-  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST},
-  {supplier: 'Shamrock Hospital Supply', origin: 'Mexico City', unitcost: 395.20, contingencycost: 8694, co2: 0.03308951, carbonunitcost: CARBON_UNITCOST},
-  {supplier: 'Tokyo Medical Solutions', origin: 'Tokyo', unitcost: 402.86, contingencycost: 9094, co2: 0.0680458, carbonunitcost: CARBON_UNITCOST},
-  {supplier: 'Lone Star Medical', origin: 'Irving', unitcost: 415.00, contingencycost: 9338, co2: 0.0443186, carbonunitcost: CARBON_UNITCOST},
+  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST, distance: 1494},
+  {supplier: 'Shamrock Hospital Supply', origin: 'Mexico City', unitcost: 395.20, contingencycost: 8694, co2: 0.03308951, carbonunitcost: CARBON_UNITCOST, distance: 8335},
+  {supplier: 'Tokyo Medical Solutions', origin: 'Tokyo', unitcost: 402.86, contingencycost: 9094, co2: 0.0680458, carbonunitcost: CARBON_UNITCOST, distance: 11107},
+  {supplier: 'Lone Star Medical', origin: 'Irving', unitcost: 415.00, contingencycost: 9338, co2: 0.0443186, carbonunitcost: CARBON_UNITCOST, distance: 1494},
 ];
 
 export interface ISupplierInput {
+  destination: string;
   productQuantity: number;
   suppliers: Array<Supplier>;
 }
 
-export default function SuppliersTable({productQuantity, suppliers}:ISupplierInput) {
+export default function SuppliersTable({destination, productQuantity, suppliers}:ISupplierInput) {
   const [orderQuantity, setOrderQuantity] = React.useState<number>(productQuantity);
   const [supplierData, setSupplierData] = React.useState<Array<Supplier>>(generatedSupplierData);
   const [carbonCost, setCarbonCost] = React.useState<number | Array<number>>(CARBON_UNITCOST);
   const [alternativePremium, setAlternativePremium] = React.useState<number | Array<number>>(ALTERNATIVE_PREMIUMCOST);
 
   useEffect(() => {
-    console.log(`Quantity/Supplier update: ${productQuantity}, suppliers: ${JSON.stringify(suppliers)}`);
+    // console.log(`Quantity/Supplier update: ${productQuantity}, suppliers: ${JSON.stringify(suppliers)}`);
     setOrderQuantity(productQuantity);
 
     suppliers.forEach(x =>  {
       let premiumModifier = 1+Number(alternativePremium)/100;
       let riskCost = productQuantity*x.unitcost*DELIVERY_RISK;
       x.contingencycost = riskCost*premiumModifier;
+    })
+
+    // sort the suppliers based on total cost
+    suppliers.sort((a:Supplier, b:Supplier) => {
+      let totalA = a.unitcost*orderQuantity+a.contingencycost+a.carbonunitcost*a.co2*orderQuantity;
+      let totalB = b.unitcost*orderQuantity+b.contingencycost+b.carbonunitcost*b.co2*orderQuantity;
+      return totalA - totalB;
     })
 
     setSupplierData(suppliers);
@@ -236,7 +251,7 @@ export default function SuppliersTable({productQuantity, suppliers}:ISupplierInp
             </TableHead>
             <TableBody>
               {supplierData.map((row) => (
-                <SupplierRow key={row.supplier} row={row} orderQuantity={orderQuantity} />
+                <SupplierRow key={row.supplier} row={row} orderQuantity={orderQuantity} destination={destination}/>
               ))}
             </TableBody>
           </Table>

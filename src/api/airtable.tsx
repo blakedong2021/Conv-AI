@@ -58,7 +58,7 @@ export function useProducts() {
 }
 
 export function useModel() {
-    const [model, setModel] = useState(null);
+    const [model, setModel] = useState([]);
    
     const fetchModel = async () => {
 
@@ -75,7 +75,7 @@ export function useModel() {
             })
 
             setModel(transformed);
-            console.log("Airtable Model: ", transformed);
+            // console.log("Airtable Model: ", transformed);
         });
     }
     

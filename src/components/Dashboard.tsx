@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import { 
-  Stack,
+import {
+  Box,
+  Button,
+  Stack, 
+  Typography,
  } from '@mui/material';
  import CalculatorInput from './CalculatorInput';
 import ProductSummary, { IProduct } from './ProductSummary';
@@ -13,7 +16,7 @@ let mockup:IProduct = {
   productSummary: "Mask, N95 Surgical Respirator, NIOSH-Certified, FDA and DCD-Listed, Foldable-Design, 20/bx, 20bx/cs",
   productSku: "MDI MS8225",
   productQuantity: 300,
-  productDestination: "Mercy Hospital",
+  productDestination: "Miami",
   productUnitWeight: 10,
   productImage: "https://cdn.shopify.com/s/files/1/0352/1069/0696/products/NIOSH_240Pack.png?v=1593614885"
 }
@@ -28,6 +31,7 @@ export default function Dashboard() {
   const [product, setProduct] = React.useState<IProduct>(mockup);
   const [suppliers, setSuppliers] = React.useState<Array<Supplier>>([]);
   const {model, fetchModel } = useModel();
+  const [waitingForInput, setWaitingForInput] = React.useState<boolean>(true);
 
   useEffect(() => {
      async function onInitialize () {
@@ -59,14 +63,20 @@ export default function Dashboard() {
   
       let options:Array<Supplier> = [];
       selectedProducts.forEach((x:any) =>  {
+        // first look up the route based on Sku and Destination
+        let routeInfo = model.filter((route:any) => (route.sku == x.id && route.destination == product.productDestination)) || null;
+        let co2 = routeInfo[0] ? routeInfo[0]['co2'] : 0;
+        let totalDistance = routeInfo[0] ? routeInfo[0]['totalDistance'] : 0;
+        console.log("Route details: " + JSON.stringify(routeInfo[0]));
         options.push(
           {
             supplier: x.supplier,
             origin: ORIGIN_MAP.get(x.supplier) || "",
             unitcost: x.adjustedCost,
             contingencycost: 0,
-            co2: 0.05,
-            carbonunitcost: 0,
+            co2: co2,
+            carbonunitcost: 100,
+            distance: totalDistance,
           }
         )
       })
@@ -76,16 +86,50 @@ export default function Dashboard() {
 
   return (
     <Stack direction="column" spacing={2}>
+      {waitingForInput ? (
+        <Typography variant="h5" color="secondary" sx={{m: 6}}>
+          Enter your data below to compare your total delivered cost by supplier.
+        </Typography>
+      ) : (<></>)}
+
       <CalculatorInput 
-        destinationInput={product.productDestination} 
+        destinationInput={""} 
         onDestinationChanged={handleDestinationChange}
-        quantityInput={product.productQuantity}
+        quantityInput={NaN}
         onQuantityChanged={handleQuantityChange}        
-        skuInput={product.productSku}
+        skuInput={""}
         onProductChanged={handleProductChange}
-      />
-      <ProductSummary {...product}/>
-      <SuppliersTable productQuantity={product.productQuantity} suppliers={suppliers}/>
+      />          
+
+      {waitingForInput ? (
+        <Box component="div" sx={{display: "flex", alignItems: "flex-end", justifyContent: "flex-end"}}>  
+          <Button 
+            variant="contained" 
+            color="secondary" 
+            sx={{m:6, width:"100px", height:"50px"}}
+            onClick={() => {
+              if (suppliers.length > 0 && product && product.productQuantity > 0) 
+                setWaitingForInput(false);
+            }}
+          >
+            Enter
+          </Button>
+        </Box>
+      ) : (<></>)}
+
+      {!waitingForInput ? (     
+        <Box>     
+          <ProductSummary 
+            {...product}
+          />        
+          <SuppliersTable 
+            destination={product.productDestination} 
+            productQuantity={product.productQuantity} 
+            suppliers={suppliers}
+          />
+        </Box>            
+      ) : (<></>)}          
+
     </Stack>
   );
 }

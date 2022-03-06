@@ -12,14 +12,9 @@ import {
 import ProductSelector from './ProductSelector';
 
 const destinations = [
-  "Mercy Hospital",
-  "Aventura Hospital and Medical Center",
-  "Kendall Regional Medical Center",
-  "Belton Regional Medical Center",
-  "Centerpoint Medical Center",
-  "Lafayette Regional Health Center",
-  "Lee’s Summit Medical Center",
-  "Research Medical Center",
+  "Kansas City",
+  "Miami",
+  "San Jose",
 ];
 
 export interface ICalculatorInput {
@@ -62,6 +57,7 @@ export default function CalculatorInput({destinationInput, onDestinationChanged,
           <TextField 
             select
             label="Select destination"
+            fullWidth 
             value={destination}
             onChange={handleDestChange}
           >
@@ -74,10 +70,6 @@ export default function CalculatorInput({destinationInput, onDestinationChanged,
           <Typography>Destination</Typography>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center" sx={{width: "33%"}}>
-          {/* <TextField 
-            value={productSku}
-            onChange={handleSkuChange}
-          /> */}
           <ProductSelector onProductSelectionChanged={handleProductSelectionChange}/>
           <Typography>Product</Typography>
         </Stack>

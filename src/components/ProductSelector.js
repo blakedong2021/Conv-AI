@@ -6,13 +6,11 @@ import {
     TextField
 } from '@mui/material';
 
-import { ListItemTextExtended, ListItemSecondaryActionExtended } from 'mui-listitem-extended';
-import placeholder from '../assets/placeholder.jpg';
 import { useProducts } from '../api/airtable';
 
 export interface IProductSelector {
     onProductSelectionChanged: (product: any) => void,
-  }
+}
 
 export default function ProductSelector({onProductSelectionChanged}:IProductSelector) {
     const { products, fetchProducts } = useProducts();
