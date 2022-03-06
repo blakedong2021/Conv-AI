@@ -172,10 +172,10 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
 
   const handleCarbonCostChange = (event: Event, newValue: number | number[]) => {
     setCarbonCost(newValue);
-    generatedSupplierData.forEach(x =>  {
+    supplierData.forEach(x =>  {
       x.carbonunitcost = Number(newValue);
     });
-    setSupplierData(generatedSupplierData);    
+    setSupplierData(supplierData);    
   };
 
   const handleAlternativePremiumChange = (event: Event, newValue: number | number[]) => {
