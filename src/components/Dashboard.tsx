@@ -73,6 +73,7 @@ export default function Dashboard() {
             supplier: x.supplier,
             origin: ORIGIN_MAP.get(x.supplier) || "",
             unitcost: x.adjustedCost,
+            unitweight: x.unitWeight,
             contingencycost: 0,
             co2: co2,
             carbonunitcost: 100,

@@ -39,6 +39,7 @@ export type Supplier = {
   supplier: string;
   origin: string;
   unitcost: number;
+  unitweight: number;
   contingencycost: number;
   co2: number;
   carbonunitcost: number;
@@ -50,10 +51,11 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number, destination:
   const [open, setOpen] = React.useState(false);
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
-  let ordercost = row.unitcost*orderQuantity;
+  let ordercost = row.unitcost * orderQuantity;
   let contingencycost = row.contingencycost;
-  let carboncost = row.carbonunitcost*row.co2*orderQuantity;
-  let totalcost = ordercost+contingencycost+carboncost;
+  let carboncost = row.carbonunitcost * row.co2 * orderQuantity;
+  let totalcost = ordercost + contingencycost + carboncost;
+  let totalWeight = row.unitweight *orderQuantity;
 
   return (
     <React.Fragment>
@@ -83,9 +85,9 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number, destination:
             <SupplierDetails
               destination={destination}
               distance={row.distance}
-              weight={"3400 kg"} 
-              duration={"10 days"} 
-              carboncost={dollarUSLocale.format(Math.round(carboncost))}
+              weight={totalWeight} 
+              duration={"N/A"} 
+              carboncost={carboncost}
             />
           </Collapse>
         </TableCell>
@@ -125,10 +127,7 @@ const carbonTicks = [
 ];
 
 const generatedSupplierData:Array<Supplier> = [
-  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST, distance: 1494},
-  {supplier: 'Shamrock Hospital Supply', origin: 'Mexico City', unitcost: 395.20, contingencycost: 8694, co2: 0.03308951, carbonunitcost: CARBON_UNITCOST, distance: 8335},
-  {supplier: 'Tokyo Medical Solutions', origin: 'Tokyo', unitcost: 402.86, contingencycost: 9094, co2: 0.0680458, carbonunitcost: CARBON_UNITCOST, distance: 11107},
-  {supplier: 'Lone Star Medical', origin: 'Irving', unitcost: 415.00, contingencycost: 9338, co2: 0.0443186, carbonunitcost: CARBON_UNITCOST, distance: 1494},
+  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, unitweight: 1, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST, distance: 1494},
 ];
 
 export interface ISupplierInput {
