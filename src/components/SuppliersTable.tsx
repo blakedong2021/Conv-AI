@@ -183,8 +183,8 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
   };
 
   const handleAlternativePremiumChange = (event: Event, newValue: number | number[]) => {
+    let premiumModifier = newValue === 0 ? 0 : 1+Number(newValue)/100;
     setAlternativePremium(newValue);
-    let premiumModifier = 1+Number(newValue)/100;
     // console.log("Premium modifier = " + premiumModifier);
 
     supplierData.forEach(x =>  {
