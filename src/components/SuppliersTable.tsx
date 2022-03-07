@@ -31,8 +31,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const CARBON_UNITCOST = 100;
-const ALTERNATIVE_PREMIUMCOST = 50;
+const CARBON_UNITCOST = 0;
+const ALTERNATIVE_PREMIUMCOST = 0;
 
 export type Supplier = {
   supplier: string;
