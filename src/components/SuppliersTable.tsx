@@ -32,7 +32,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const CARBON_UNITCOST = 100;
-const ALTERNATIVE_PREMIUMCOST = 50;
+const ALTERNATIVE_PREMIUMCOST = 0;
 const DELIVERY_RISK = 0.05;
 
 export type Supplier = {
@@ -148,7 +148,7 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
     setOrderQuantity(productQuantity);
 
     suppliers.forEach(x =>  {
-      let premiumModifier = 1+Number(alternativePremium)/100;
+      let premiumModifier = alternativePremium === 0 ? 0 : 1+Number(alternativePremium)/100;
       let riskCost = productQuantity*x.unitcost*DELIVERY_RISK;
       x.contingencycost = riskCost*premiumModifier;
     })
@@ -180,8 +180,8 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
   };
 
   const handleAlternativePremiumChange = (event: Event, newValue: number | number[]) => {
+    let premiumModifier = newValue === 0 ? 0 : 1+Number(newValue)/100;
     setAlternativePremium(newValue);
-    let premiumModifier = 1+Number(newValue)/100;
     // console.log("Premium modifier = " + premiumModifier);
 
     supplierData.forEach(x =>  {
