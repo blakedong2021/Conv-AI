@@ -25,7 +25,7 @@ function TopbarContent() {
       >
         <Avatar
           alt="Cara Thrase"
-          src={UserAvatar}
+          src={'https://media-exp1.licdn.com/dms/image/C5603AQHbjF8cgRVJrw/profile-displayphoto-shrink_800_800/0/1637259701195?e=1652313600&v=beta&t=lpvWwKmZIFi-U-_BBY9NSvG0WVaCMr47mv73BDizW0Q'}
           sx={{ width: 56, height: 56, mr: 2 }}
         >CT</Avatar>
         <Typography
@@ -33,7 +33,7 @@ function TopbarContent() {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          Welcome Back, Cara!
+          Welcome Back, David!
         </Typography>
         <IconButton
           onClick={() => navigate('/') }
