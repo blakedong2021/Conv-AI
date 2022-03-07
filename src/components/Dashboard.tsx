@@ -59,15 +59,16 @@ export default function Dashboard() {
         productUnitWeight: newProduct.unitWeight,
         productImage: newProduct.image,
       });
-      console.log("New Product Selected: " + newProduct.name);
-  
+
+ 
       let options:Array<Supplier> = [];
       selectedProducts.forEach((x:any) =>  {
         // first look up the route based on Sku and Destination
         let routeInfo = model.filter((route:any) => (route.sku == x.id && route.destination == product.productDestination)) || null;
         let co2 = routeInfo[0] ? routeInfo[0]['co2'] : 0;
+        let routerisk = routeInfo[0] ? routeInfo[0]['deliveryrisk'] : 0;
         let totalDistance = routeInfo[0] ? routeInfo[0]['totalDistance'] : 0;
-        console.log("Route details: " + JSON.stringify(routeInfo[0]));
+        // console.log("Route matching for product id: " + x.id + ", Route details: " + JSON.stringify(routeInfo[0]));
         options.push(
           {
             supplier: x.supplier,
@@ -78,6 +79,7 @@ export default function Dashboard() {
             co2: co2,
             carbonunitcost: 100,
             distance: totalDistance,
+            deliveryrisk: routerisk,
           }
         )
       })
@@ -96,7 +98,7 @@ export default function Dashboard() {
       <CalculatorInput 
         destinationInput={""} 
         onDestinationChanged={handleDestinationChange}
-        quantityInput={NaN}
+        quantityInput={0}
         onQuantityChanged={handleQuantityChange}        
         skuInput={""}
         onProductChanged={handleProductChange}

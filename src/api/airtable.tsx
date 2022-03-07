@@ -71,11 +71,12 @@ export function useModel() {
                     destination: p.fields['Destination'],
                     totalDistance: p.fields['Total Distance'],
                     co2: p.fields['Metric Tons CO2 per Unit'],
+                    deliveryrisk: p.fields['Delivery Risk'],
                 };
             })
 
             setModel(transformed);
-            // console.log("Airtable Model: ", transformed);
+            console.log("Airtable Model: ", transformed[0]);
         });
     }
     

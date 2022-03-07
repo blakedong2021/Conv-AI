@@ -33,7 +33,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const CARBON_UNITCOST = 100;
 const ALTERNATIVE_PREMIUMCOST = 50;
-const DELIVERY_RISK = 0.05;
 
 export type Supplier = {
   supplier: string;
@@ -44,6 +43,7 @@ export type Supplier = {
   co2: number;
   carbonunitcost: number;
   distance: number;
+  deliveryrisk: number;
 };
 
 function SupplierRow(props: { row: Supplier, orderQuantity: number, destination: string }) {
@@ -128,7 +128,7 @@ const carbonTicks = [
 ];
 
 const generatedSupplierData:Array<Supplier> = [
-  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, unitweight: 1, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST, distance: 1494},
+  {supplier: 'Salud Medical Supply', origin: 'Dublin', unitcost: 386.40, unitweight: 1, contingencycost: 8892, co2: 0.02245, carbonunitcost: CARBON_UNITCOST, distance: 1494, deliveryrisk: 0.05},
 ];
 
 export interface ISupplierInput {
@@ -149,19 +149,22 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
 
     suppliers.forEach(x =>  {
       let premiumModifier = 1+Number(alternativePremium)/100;
-      let riskCost = productQuantity*x.unitcost*DELIVERY_RISK;
+      let riskCost = productQuantity*x.unitcost*x.deliveryrisk;
       x.contingencycost = riskCost*premiumModifier;
+
+      // console.log(`${x.supplier} order cost: ${x.unitcost*orderQuantity} | contingency: ${ x.contingencycost} | carboncost: ${x.carbonunitcost*x.co2*orderQuantity}`);
     })
 
     // sort the suppliers based on total cost
     suppliers.sort((a:Supplier, b:Supplier) => {
       let totalA = a.unitcost*orderQuantity+a.contingencycost+a.carbonunitcost*a.co2*orderQuantity;
       let totalB = b.unitcost*orderQuantity+b.contingencycost+b.carbonunitcost*b.co2*orderQuantity;
+
       return totalA - totalB;
     })
 
     setSupplierData(suppliers);
-  }, [productQuantity, suppliers]);
+  }, [productQuantity, suppliers, alternativePremium, carbonCost]);
 
   function valuetext(value: number) {
     return `${value}`;
@@ -186,7 +189,7 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
 
     supplierData.forEach(x =>  {
       // console.log("Order Cost = " + x.quantity*x.unitcost);
-      let riskCost = orderQuantity*x.unitcost*DELIVERY_RISK;
+      let riskCost = orderQuantity*x.unitcost*x.deliveryrisk;
       x.contingencycost = riskCost*premiumModifier;
       // console.log("Contingency Cost = " + x.contingencycost);
     });    
