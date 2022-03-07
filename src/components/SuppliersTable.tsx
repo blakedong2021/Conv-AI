@@ -53,7 +53,6 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number, destination:
   let dollarUSLocale = Intl.NumberFormat('en-US');
   let ordercost = row.unitcost * orderQuantity;
   let contingencycost = row.contingencycost;
-  console.log("New carbon unit cost: " + row.carbonunitcost);
   let carboncost = row.carbonunitcost * row.co2 * orderQuantity;
   let totalcost = ordercost + contingencycost + carboncost;
   let totalWeight = row.unitweight *orderQuantity;

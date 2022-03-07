@@ -76,7 +76,28 @@ export function useModel() {
             })
 
             setModel(transformed);
-            console.log("Airtable Model: ", transformed[0]);
+
+            console.log("Airtable Model routes count: ", transformed.length);
+            console.log("Record offset: " + res.data.offset);
+
+            if (res.data.offset) {
+                return axios.get('/models?offset='+res.data.offset).then(res => {
+                    const transformed2 = res.data.records.map((p: any) => {
+                        return {
+                            id: p.id,
+                            sku: p.fields['SKU'][0],
+                            supplier: p.fields['Supplier'][0],
+                            destination: p.fields['Destination'],
+                            totalDistance: p.fields['Total Distance'],
+                            co2: p.fields['Metric Tons CO2 per Unit'],
+                            deliveryrisk: p.fields['Delivery Risk'],
+                        };
+                    })
+                    let merged = transformed.concat(transformed2);
+                    console.log("Airtable Model routes count: ", merged.length);
+                    setModel(merged);
+                });
+            }
         });
     }
     
