@@ -53,6 +53,7 @@ function SupplierRow(props: { row: Supplier, orderQuantity: number, destination:
   let dollarUSLocale = Intl.NumberFormat('en-US');
   let ordercost = row.unitcost * orderQuantity;
   let contingencycost = row.contingencycost;
+  console.log("New carbon unit cost: " + row.carbonunitcost);
   let carboncost = row.carbonunitcost * row.co2 * orderQuantity;
   let totalcost = ordercost + contingencycost + carboncost;
   let totalWeight = row.unitweight *orderQuantity;
@@ -175,24 +176,21 @@ export default function SuppliersTable({destination, productQuantity, suppliers}
   }
 
   const handleCarbonCostChange = (event: Event, newValue: number | number[]) => {
-    setCarbonCost(newValue);
     supplierData.forEach(x =>  {
       x.carbonunitcost = Number(newValue);
     });
     setSupplierData(supplierData);    
+    setCarbonCost(newValue);
   };
 
   const handleAlternativePremiumChange = (event: Event, newValue: number | number[]) => {
     let premiumModifier = newValue === 0 ? 0 : 1+Number(newValue)/100;
-    setAlternativePremium(newValue);
-    // console.log("Premium modifier = " + premiumModifier);
 
     supplierData.forEach(x =>  {
-      // console.log("Order Cost = " + x.quantity*x.unitcost);
       let riskCost = orderQuantity*x.unitcost*x.deliveryrisk;
       x.contingencycost = riskCost*premiumModifier;
-      // console.log("Contingency Cost = " + x.contingencycost);
     });    
+    setAlternativePremium(newValue);    
   };
 
   return (
